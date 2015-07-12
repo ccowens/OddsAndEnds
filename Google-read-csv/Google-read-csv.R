@@ -1,4 +1,4 @@
-GoogleReadCsv <- function(sheet.ID) {
+GoogleReadCsv <- function(sheet.ID, ...) {
 # version of read.csv for reading Google spreadsheets into data frames 
 # using the trick of appending export?format=csv to the URL
 # Based on discussion in:
@@ -8,6 +8,8 @@ GoogleReadCsv <- function(sheet.ID) {
 # out of:
 #   https://docs.google.com/spreadsheets/d/1CO8L7ly0U1CO8L7ly0U/edit#g
 # The sheet has to be public (just the link).
+# Note the ... for passing through parameters like stringsAsFactors,	as.is, and colClasses that you can
+# learn about with ?read.csv
 
   # Combine the pieces to make the URL
   file.URL <- paste0("https://docs.google.com/spreadsheets/d/",
@@ -27,5 +29,5 @@ GoogleReadCsv <- function(sheet.ID) {
   
   # Use textConnect to treat reading from the variable as if 
   # it were reading from a CSV file and return a data frame 
-  read.csv(textConnection(sheet))
+  read.csv(textConnection(sheet), ...)
 }
